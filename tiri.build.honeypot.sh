@@ -60,7 +60,7 @@ fi
 if [ ! -d "$tiDIR" ]
  then
    mkdir -p $tiDIR
-   cp $tiRELEASE $tiDIR/$tiRELEASE
+   cp $tiRELEASE $tiDIR/
 fi
 
 
