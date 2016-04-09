@@ -8,6 +8,8 @@ tiPERSISTENCE="NO"
 tiBUILDISO="YES"
 tiBUILDcert="NO"
 #
+tiGITHUB="https://github.com/zerohat/tiri.pot.git"
+#
 tiCopytoXEN="NO"
 tiXENhost="192.168.23.1"
 tiXENpath="/var/run/sr-mount/5d6ebe8e-8909-4913-197e-f96b7854680d"
@@ -39,6 +41,10 @@ if [ "$tiDIR" == "CHANGE_ME" ]; then
   echo ""
   exit 0
 fi
+
+echo "## fetch latest tiri.pot installer ###"
+cd $PWD
+git pull
 
 echo "## Cleanup ##"
 if [ -d "$tiBASE/$tiTPOTDIR" ]
