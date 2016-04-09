@@ -1,0 +1,54 @@
+# T-Pot preseed file by mo
+# Setting locale
+d-i debian-installer/language string en
+d-i debian-installer/country string DE
+d-i debian-installer/locale string en_US.UTF-8
+
+# Keyboard selection
+d-i console-setup/ask_detect boolean false
+d-i keyboard-configuration/layoutcode string de
+
+
+#Unmount active partitions
+d-i preseed/early_command string umount /media || :
+
+# Network Configuration
+#d-i netcfg/choose_interface select auto
+#d-i netcfg/dhcp_timeout string 60
+d-i netcfg/get_hostname string tiri-pot
+
+# Source & Proxy
+d-i mirror/country string Germany
+d-i mirror/http/hostname string archive.ubuntu.com
+d-i mirror/http/directory string /ubuntu
+d-i mirror/http/proxy string
+
+# Time
+#d-i clock-setup/utc boolean true
+#d-i time/zone string Europe/Berlin
+d-i time/zone string UTC
+d-i clock-setup/ntp boolean true
+
+
+d-i partman-auto/method string lvm
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-auto-lvm/guided_size string 15GB
+d-i partman-auto/choose_recipe select multi
+
+# Package Groups
+tasksel tasksel/first multiselect ubuntu-server
+
+# Packages
+d-i pkgsel/include string apt-transport-https ca-certificates curl dialog dstat ethtool genisoimage git htop iw libpam-google-authenticator lm-sensors ntp openssh-server syslinux pv vim wireless-tools wpasupplicant nmap
+
+# Update Policy
+d-i pkgsel/update-policy select unattended-upgrades
+
+# Post install
+d-i preseed/late_command string \
+cp /cdrom/tpot/rc.local.install /target/etc/rc.local; \
+cp -r /cdrom/tpot/ /target/root/
+
+
+# Reboot
+d-i finish-install/reboot_in_progress note
